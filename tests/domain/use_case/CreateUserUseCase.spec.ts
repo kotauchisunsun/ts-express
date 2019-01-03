@@ -10,10 +10,10 @@ import { UserId } from "../../../src/domain/UserId";
 
 describe("CreateUserUseCaseのテスト", () => {
   it("正常系のテスト", async () => {
-    expect.assertions(1);
+    expect.assertions(2);
     const repositoryMockClass = jest.fn<UserRepositoryInteface>(() => ({
       save: async (user: User): Promise<void> => {
-        const a = 1;
+        expect(user.userName).toBe("kotauchisunsun");
       }
     }));
     const repositoryMock = new repositoryMockClass();
@@ -33,11 +33,7 @@ describe("CreateUserUseCaseのテスト", () => {
 
   it("異常系のテスト", async () => {
     expect.assertions(1);
-    const Mock = jest.fn<UserRepositoryInteface>(() => ({
-      save: async (user: User): Promise<void> => {
-        const a = 1;
-      }
-    }));
+    const Mock = jest.fn<UserRepositoryInteface>(() => ({}));
     const mock = new Mock();
 
     const serviceMockClass = jest.fn<UserService>(() => ({

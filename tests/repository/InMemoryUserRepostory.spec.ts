@@ -34,7 +34,7 @@ describe("InMemoryUserRepositoryのテスト", () => {
   it("Findの異常系のテスト", async () => {
     expect.assertions(1);
     const repository = new InMemoryUserRepository();
-    expect(repository.find(new UserId("1234"))).rejects.toBeInstanceOf(
+    await expect(repository.find(new UserId("1234"))).rejects.toBeInstanceOf(
       UserNotFoundError
     );
   });

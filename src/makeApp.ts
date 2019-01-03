@@ -24,12 +24,19 @@ export function makeApp2(useCase: ReadUserUseCase): express.Application {
     ) => {
       const userId = req.params.id;
       const input = new ReadUserUseCaseInput(userId);
-      const output = await useCase.run(input);
-      const data = {
-        name: output.name
-      };
-      res.json(data);
-      res.end();
+      const result = useCase.run(input);
+      result
+        .then(output => {
+          const data = {
+            name: output.name
+          };
+          res.json(data);
+          res.end();
+        })
+        .catch(e => {
+          res.status(400);
+          res.end();
+        });
     }
   );
 

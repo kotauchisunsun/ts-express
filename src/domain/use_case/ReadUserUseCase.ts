@@ -1,6 +1,5 @@
 import { UserId } from "../UserId";
 import { UserRepositoryInteface } from "../../repository/user/UserRepositoryInteface";
-import { InMemoryUserRepository } from "../../repository/user/InMemoryUserRepository";
 
 export class ReadUserUseCaseInput {
   public constructor(private _userId: string) {}

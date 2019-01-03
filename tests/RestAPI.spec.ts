@@ -5,9 +5,10 @@ import {
   ReadUserUseCaseInput,
   ReadUserUseCaseOuput
 } from "../src/domain/use_case/ReadUserUseCase";
+import { UserNotFoundError } from "../src/repository/user/UserNotFoundError";
 
-describe("Rest APIのテスト", () => {
-  it("GET /users/:id", async () => {
+describe("GET /users/:id", () => {
+  it("正常系のテスト", async () => {
     const Mock = jest.fn<ReadUserUseCase>(() => ({
       run: async (
         input: ReadUserUseCaseInput
@@ -25,6 +26,23 @@ describe("Rest APIのテスト", () => {
     expect(data).toEqual({ name: "kotauchisunsun" });
   });
 
+  it("異常系のテスト", async () => {
+    const Mock = jest.fn<ReadUserUseCase>(() => ({
+      run: async (
+        input: ReadUserUseCaseInput
+      ): Promise<ReadUserUseCaseOuput> => {
+        throw new UserNotFoundError();
+      }
+    }));
+    const mock = new Mock();
+
+    const request = supertest(makeApp2(mock));
+    const response = await request.get("/users/1234");
+    expect(response.status).toBe(400);
+  });
+});
+
+describe("Rest APIのテスト", () => {
   it("POST /users", async () => {
     const request = supertest(makeApp());
     const response = await request

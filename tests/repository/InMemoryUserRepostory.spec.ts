@@ -22,6 +22,15 @@ describe("InMemoryUserRepositoryのテスト", () => {
     expect(savedUser.userName).toBe(user.userName);
   });
 
+  it("Existsのテスト", async () => {
+    const userId = new UserId("1234");
+    const user = new User(userId, "kotauchisunsun");
+    const repository = new InMemoryUserRepository();
+    await expect(repository.exists(userId)).resolves.toBeFalsy();
+    await repository.save(user);
+    await expect(repository.exists(userId)).resolves.toBeTruthy();
+  });
+
   it("Findの異常系のテスト", async () => {
     const repository = new InMemoryUserRepository();
     try {

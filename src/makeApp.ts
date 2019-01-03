@@ -8,11 +8,13 @@ import {
   CreateUserUseCase,
   CreateUserUseCaseInput
 } from "./domain/use_case/CreateUserUseCase";
+import { UserService } from "./domain/UserService";
 
 export function makeApp(): express.Application {
   const repository = new InMemoryUserRepository();
   const readUserUseCase = new ReadUserUseCase(repository);
-  const createUserUseCase = new CreateUserUseCase(repository);
+  const userService = new UserService(repository);
+  const createUserUseCase = new CreateUserUseCase(repository, userService);
 
   return makeApp2(readUserUseCase, createUserUseCase);
 }

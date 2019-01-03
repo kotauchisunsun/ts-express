@@ -22,9 +22,11 @@ export class InMemoryUserRepository implements UserRepositoryInteface {
 
   public async save(user: User): Promise<void> {
     const userId = user.id.value;
-    if (this.data.has(userId)) {
-      throw new UserDuplicatedError();
-    }
     this.data.set(userId, user);
+  }
+
+  public async exists(userId: UserId): Promise<boolean> {
+    const key = userId.value;
+    return this.data.has(key);
   }
 }

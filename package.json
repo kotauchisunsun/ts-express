@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "npx prettier --write src/**/** tests/**/** && npx tslint --fix -p .",
-    "test": "npm run lint && npx jest --coverage",
+    "test": "npm run lint && npx jest  --runInBand --coverage",
     "test-clear": "npx jest --clearCache",
     "test-watch": "npx jest --coverage --watch"
   },

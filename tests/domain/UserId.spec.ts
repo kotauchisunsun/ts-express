@@ -1,5 +1,5 @@
-import { UserId } from "../src/domain/UserId";
-import { InvalidUserIdError } from "../src/domain/InvalidUserIdError";
+import { UserId } from "../../src/domain/UserId";
+import { InvalidUserIdError } from "../../src/domain/InvalidUserIdError";
 
 describe("UserIdのテスト", () => {
   it("正常系", () => {

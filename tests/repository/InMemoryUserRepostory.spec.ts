@@ -1,7 +1,7 @@
-import { UserId } from "../src/domain/UserId";
-import { InMemoryUserRepository } from "../src/repository/user/InMemoryUserRepository";
-import { User } from "../src/domain/User";
-import { UserNotFoundError } from "../src/repository/user/UserNotFoundError";
+import { UserId } from "../../src/domain/UserId";
+import { InMemoryUserRepository } from "../../src/repository/user/InMemoryUserRepository";
+import { User } from "../../src/domain/User";
+import { UserNotFoundError } from "../../src/repository/user/UserNotFoundError";
 
 describe("InMemoryUserRepositoryのテスト", () => {
   it("Saveのテスト", async () => {

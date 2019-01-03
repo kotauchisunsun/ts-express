@@ -24,9 +24,23 @@ describe("InMemoryUserRepositoryのテスト", () => {
 
   it("Findの異常系のテスト", async () => {
     const repository = new InMemoryUserRepository();
-    repository
-      .find(new UserId("1234"))
-      .then(x => fail())
-      .catch(e => expect(typeof e).toBe("UserNotFoundError"));
+    try {
+      await repository.find(new UserId("1234"));
+      fail();
+    } catch (e) {
+      expect(e.name).toBe("UserNotFoundError");
+    }
+  });
+
+  it("Saveの異常系のテスト", async () => {
+    const user = new User(new UserId("1234"), "kotauchisunsun");
+    const repository = new InMemoryUserRepository();
+    await repository.save(user);
+
+    try {
+      await repository.save(user);
+    } catch (e) {
+      expect(e.name).toBe("UserDuplicatedError");
+    }
   });
 });

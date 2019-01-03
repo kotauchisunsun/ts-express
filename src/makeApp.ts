@@ -9,19 +9,25 @@ import {
   CreateUserUseCaseInput
 } from "./domain/use_case/CreateUserUseCase";
 import { UserService } from "./domain/UserService";
+import {
+  UpdateUserUseCase,
+  UpdateUserUseCaseInput
+} from "./domain/use_case/UpdateUserUseCase";
 
 export function makeApp(): express.Application {
   const repository = new InMemoryUserRepository();
   const readUserUseCase = new ReadUserUseCase(repository);
   const userService = new UserService(repository);
   const createUserUseCase = new CreateUserUseCase(repository, userService);
+  const updateUserUseCase = new UpdateUserUseCase(repository, userService);
 
-  return makeApp2(readUserUseCase, createUserUseCase);
+  return makeApp2(readUserUseCase, createUserUseCase, updateUserUseCase);
 }
 
 export function makeApp2(
   readUserUseCase: ReadUserUseCase,
-  createUserUseCase: CreateUserUseCase
+  createUserUseCase: CreateUserUseCase,
+  updateUserUseCase: UpdateUserUseCase
 ): express.Application {
   const app: express.Application = express();
   app.use(express.json());
@@ -71,13 +77,21 @@ export function makeApp2(
 
   app.put(
     "/users/:id",
-    (
+    async (
       req: express.Request,
       res: express.Response,
       next: express.NextFunction
     ) => {
-      res.write("Hello");
-      res.end();
+      const userId = req.params.id;
+      const name = req.body.name;
+      const input = new UpdateUserUseCaseInput(userId, name);
+      try {
+        await updateUserUseCase.run(input);
+        res.end();
+      } catch (e) {
+        res.status(400);
+        res.end();
+      }
     }
   );
 

@@ -34,7 +34,7 @@ export class UpdateUserUseCase {
     } else {
       const user = await this.repository.find(userId);
       user.changeUserName(input.name);
-      this.repository.save(user);
+      await this.repository.save(user);
     }
   }
 }

@@ -32,24 +32,10 @@ describe("InMemoryUserRepositoryのテスト", () => {
   });
 
   it("Findの異常系のテスト", async () => {
+    expect.assertions(1);
     const repository = new InMemoryUserRepository();
-    try {
-      await repository.find(new UserId("1234"));
-      fail();
-    } catch (e) {
-      expect(e.name).toBe("UserNotFoundError");
-    }
-  });
-
-  it("Saveの異常系のテスト", async () => {
-    const user = new User(new UserId("1234"), "kotauchisunsun");
-    const repository = new InMemoryUserRepository();
-    await repository.save(user);
-
-    try {
-      await repository.save(user);
-    } catch (e) {
-      expect(e.name).toBe("UserDuplicatedError");
-    }
+    expect(repository.find(new UserId("1234"))).rejects.toBeInstanceOf(
+      UserNotFoundError
+    );
   });
 });

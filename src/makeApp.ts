@@ -13,21 +13,13 @@ import {
   UpdateUserUseCase,
   UpdateUserUseCaseInput
 } from "./domain/use_case/UpdateUserUseCase";
+import { DeleteUserUseCase, DeleteUserUseCaseInput } from "./domain/use_case/DeleteUserUseCase";
 
-export function makeApp(): express.Application {
-  const repository = new InMemoryUserRepository();
-  const readUserUseCase = new ReadUserUseCase(repository);
-  const userService = new UserService(repository);
-  const createUserUseCase = new CreateUserUseCase(repository, userService);
-  const updateUserUseCase = new UpdateUserUseCase(repository, userService);
-
-  return makeApp2(readUserUseCase, createUserUseCase, updateUserUseCase);
-}
-
-export function makeApp2(
-  readUserUseCase: ReadUserUseCase,
+export function makeApp(
   createUserUseCase: CreateUserUseCase,
-  updateUserUseCase: UpdateUserUseCase
+  readUserUseCase: ReadUserUseCase,
+  updateUserUseCase: UpdateUserUseCase,
+  deleteUserUseCase: DeleteUserUseCase
 ): express.Application {
   const app: express.Application = express();
   app.use(express.json());
@@ -97,12 +89,14 @@ export function makeApp2(
 
   app.delete(
     "/users/:id",
-    (
+    async (
       req: express.Request,
       res: express.Response,
       next: express.NextFunction
     ) => {
-      res.write("Hello");
+      const userId = req.params.id;
+      const input = new DeleteUserUseCaseInput(userId);
+      await deleteUserUseCase.run(input);
       res.end();
     }
   );

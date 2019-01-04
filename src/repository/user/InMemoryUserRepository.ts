@@ -29,4 +29,8 @@ export class InMemoryUserRepository implements UserRepositoryInteface {
     const key = userId.value;
     return this.data.has(key);
   }
+
+  public async delete(userId: UserId): Promise<boolean> {
+    return this.data.delete(userId.value);
+  }
 }

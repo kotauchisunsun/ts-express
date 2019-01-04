@@ -1,5 +1,5 @@
 import * as supertest from "supertest";
-import { makeApp, makeApp2 } from "../src/makeApp";
+import { makeApp } from "../src/makeApp";
 import {
   ReadUserUseCase,
   ReadUserUseCaseInput,
@@ -15,6 +15,10 @@ import {
   UpdateUserUseCase,
   UpdateUserUseCaseInput
 } from "../src/domain/use_case/UpdateUserUseCase";
+import {
+  DeleteUserUseCase,
+  DeleteUserUseCaseInput
+} from "src/domain/use_case/DeleteUserUseCase";
 
 function makeReadUserUseCaseMock(): ReadUserUseCase {
   const mockClass = jest.fn<ReadUserUseCase>();
@@ -31,7 +35,29 @@ function makeUpdateUserUseCaseMock(): UpdateUserUseCase {
   return new mockClass();
 }
 
+function makeDeleteUserUseCaseMock(): DeleteUserUseCase {
+  const mockClass = jest.fn<DeleteUserUseCase>();
+  return new mockClass();
+}
+
 describe("GET /users/:id", () => {
+  function makeDummyApp(
+    readUserUseCaseMock: ReadUserUseCase
+  ): supertest.SuperTest<supertest.Test> {
+    const createUserUseCaseMock = makeCreateUserUseCaseMock();
+    const updateUserUseCaseMock = makeUpdateUserUseCaseMock();
+    const deleteUserUseCaseMock = makeDeleteUserUseCaseMock();
+
+    return supertest(
+      makeApp(
+        createUserUseCaseMock,
+        readUserUseCaseMock,
+        updateUserUseCaseMock,
+        deleteUserUseCaseMock
+      )
+    );
+  }
+
   it("正常系のテスト", async () => {
     const Mock = jest.fn<ReadUserUseCase>(() => ({
       run: async (
@@ -40,17 +66,8 @@ describe("GET /users/:id", () => {
         return new ReadUserUseCaseOuput("kotauchisunsun");
       }
     }));
-    const readUserUseCaseMock = new Mock();
-    const createUserUseCaseMock = makeCreateUserUseCaseMock();
-    const updateUserUseCaseMock = makeUpdateUserUseCaseMock();
 
-    const request = supertest(
-      makeApp2(
-        readUserUseCaseMock,
-        createUserUseCaseMock,
-        updateUserUseCaseMock
-      )
-    );
+    const request = makeDummyApp(new Mock());
     const response = await request.get("/users/1234");
     expect(response.status).toBe(200);
 
@@ -66,23 +83,31 @@ describe("GET /users/:id", () => {
         throw new UserNotFoundError();
       }
     }));
-    const readUserUseCaseMock = new Mock();
-    const createUserUseCaseMock = makeCreateUserUseCaseMock();
-    const updateUserUseCaseMock = makeUpdateUserUseCaseMock();
 
-    const request = supertest(
-      makeApp2(
-        readUserUseCaseMock,
-        createUserUseCaseMock,
-        updateUserUseCaseMock
-      )
-    );
+    const request = makeDummyApp(new Mock());
     const response = await request.get("/users/1234");
     expect(response.status).toBe(400);
   });
 });
 
 describe("POST /users", () => {
+  function makeDummyApp(
+    createUserUseCaseMock: CreateUserUseCase
+  ): supertest.SuperTest<supertest.Test> {
+    const readUserUseCaseMock = makeReadUserUseCaseMock();
+    const updateUserUseCaseMock = makeUpdateUserUseCaseMock();
+    const deleteUserUseCaseMock = makeDeleteUserUseCaseMock();
+
+    return supertest(
+      makeApp(
+        createUserUseCaseMock,
+        readUserUseCaseMock,
+        updateUserUseCaseMock,
+        deleteUserUseCaseMock
+      )
+    );
+  }
+
   it("正常系のテスト", async () => {
     const name = "kotauchisunsun";
 
@@ -92,17 +117,7 @@ describe("POST /users", () => {
       }
     }));
 
-    const readUserUseCaseMock = makeReadUserUseCaseMock();
-    const createUserUseCaseMock = new Mock();
-    const updateUserUseCaseMock = makeUpdateUserUseCaseMock();
-
-    const request = supertest(
-      makeApp2(
-        readUserUseCaseMock,
-        createUserUseCaseMock,
-        updateUserUseCaseMock
-      )
-    );
+    const request = makeDummyApp(new Mock());
     const response = await request.post("/users").send({ name: name });
     expect(response.status).toBe(200);
   });
@@ -116,23 +131,30 @@ describe("POST /users", () => {
       }
     }));
 
-    const readUserUseCaseMock = makeReadUserUseCaseMock();
-    const createUserUseCaseMock = new Mock();
-    const updateUserUseCaseMock = makeUpdateUserUseCaseMock();
-
-    const request = supertest(
-      makeApp2(
-        readUserUseCaseMock,
-        createUserUseCaseMock,
-        updateUserUseCaseMock
-      )
-    );
+    const request = makeDummyApp(new Mock());
     const response = await request.post("/users").send({ name: name });
     expect(response.status).toBe(400);
   });
 });
 
 describe("PUT /users", () => {
+  function makeDummyApp(
+    updateUserUseCaseMock: UpdateUserUseCase
+  ): supertest.SuperTest<supertest.Test> {
+    const createUserUseCaseMock = makeCreateUserUseCaseMock();
+    const readUserUseCaseMock = makeReadUserUseCaseMock();
+    const deleteUserUseCaseMock = makeDeleteUserUseCaseMock();
+
+    return supertest(
+      makeApp(
+        createUserUseCaseMock,
+        readUserUseCaseMock,
+        updateUserUseCaseMock,
+        deleteUserUseCaseMock
+      )
+    );
+  }
+
   it("正常系のテスト", async () => {
     const Mock = jest.fn<UpdateUserUseCase>(() => ({
       run: async (input: UpdateUserUseCaseInput): Promise<void> => {
@@ -140,17 +162,7 @@ describe("PUT /users", () => {
       }
     }));
 
-    const readUserUseCaseMock = makeReadUserUseCaseMock();
-    const createUserUseCaseMock = makeCreateUserUseCaseMock();
-    const updateUserUseCaseMock = new Mock();
-
-    const request = supertest(
-      makeApp2(
-        readUserUseCaseMock,
-        createUserUseCaseMock,
-        updateUserUseCaseMock
-      )
-    );
+    const request = makeDummyApp(new Mock());
     const response = await request
       .put("/users/1234")
       .send({ name: "kotauchisunsun" });
@@ -164,17 +176,7 @@ describe("PUT /users", () => {
       }
     }));
 
-    const readUserUseCaseMock = makeReadUserUseCaseMock();
-    const createUserUseCaseMock = makeCreateUserUseCaseMock();
-    const updateUserUseCaseMock = new Mock();
-
-    const request = supertest(
-      makeApp2(
-        readUserUseCaseMock,
-        createUserUseCaseMock,
-        updateUserUseCaseMock
-      )
-    );
+    const request = makeDummyApp(new Mock());
     const response = await request
       .put("/users/1234")
       .send({ name: "kotauchisunsun" });
@@ -182,9 +184,27 @@ describe("PUT /users", () => {
   });
 });
 
-describe("Rest APIのテスト", () => {
-  it("DELETE /users/:id", async () => {
-    const request = supertest(makeApp());
+describe("DELETE /users/:id", () => {
+  it("正常系のテスト", async () => {
+    const Mock = jest.fn<DeleteUserUseCase>(() => ({
+      run: async (input: DeleteUserUseCaseInput): Promise<boolean> => {
+        return false;
+      }
+    }));
+
+    const createUserUseCaseMock = makeCreateUserUseCaseMock();
+    const readUserUseCaseMock = makeReadUserUseCaseMock();
+    const updateUserUseCaseMock = makeUpdateUserUseCaseMock();
+    const deleteUserUseCase = new Mock();
+
+    const request = supertest(
+      makeApp(
+        createUserUseCaseMock,
+        readUserUseCaseMock,
+        updateUserUseCaseMock,
+        deleteUserUseCase
+      )
+    );
     const response = await request.delete("/users/:id");
     expect(response.status).toBe(200);
   });

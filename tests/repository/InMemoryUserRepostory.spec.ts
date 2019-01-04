@@ -8,9 +8,7 @@ describe("InMemoryUserRepositoryのテスト", () => {
     const user = new User(new UserId("1234"), "kotauchisunsun");
 
     const repository = new InMemoryUserRepository();
-    expect(async () => {
-      await repository.save(user);
-    }).not.toThrow();
+    await expect(repository.save(user)).resolves.toBeUndefined();
   });
 
   it("Findのテスト", async () => {
@@ -37,5 +35,15 @@ describe("InMemoryUserRepositoryのテスト", () => {
     await expect(repository.find(new UserId("1234"))).rejects.toBeInstanceOf(
       UserNotFoundError
     );
+  });
+
+  it("Deleteのテスト", async () => {
+    expect.assertions(2);
+    const user = new User(new UserId("1234"), "kotauchisunsun");
+    const repository = new InMemoryUserRepository();
+    await expect(repository.delete(new UserId("1234"))).resolves.toBeFalsy();
+    await repository.save(user);
+    const savedUser = await repository.find(new UserId("1234"));
+    await expect(repository.delete(new UserId("1234"))).resolves.toBeTruthy();
   });
 });

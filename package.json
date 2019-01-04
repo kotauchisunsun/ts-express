@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "lint": "npx prettier --write \"{,!(node_modules)/**/}*.ts\" && npx tslint --fix -p .",
-    "test": "npm run lint && npx jest  --runInBand --coverage",
+    "test-local": "npm run lint && npx jest  --runInBand --coverage",
+    "test": "npx jest  --runInBand --coverage",
     "test-clear": "npx jest --clearCache",
     "test-watch": "npx jest --coverage --watch"
   },

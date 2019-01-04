@@ -4,4 +4,4 @@
 
 # TS-Express
 
-TypeScript + Expressの練習
+TypeScript + Expressの練習．

@@ -3,6 +3,7 @@
 [![CircleCI](https://circleci.com/gh/kotauchisunsun/ts-express.svg?style=svg)](https://circleci.com/gh/kotauchisunsun/ts-express)
 [![codecov](https://codecov.io/gh/kotauchisunsun/ts-express/branch/master/graph/badge.svg)](https://codecov.io/gh/kotauchisunsun/ts-express)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a3309e8f04b7bec4581f/maintainability)](https://codeclimate.com/github/kotauchisunsun/ts-express/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/a3309e8f04b7bec4581f/test_coverage)](https://codeclimate.com/github/kotauchisunsun/ts-express/test_coverage)
 
 # TS-Express
 

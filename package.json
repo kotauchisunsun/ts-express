@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "npx prettier --write \"{,!(node_modules)/**/}*.ts\" && npx tslint --fix -p .",
     "test-local": "npm run lint && npx jest  --runInBand --coverage",
-    "test": "npx jest  --runInBand --coverage　&& cat ./coverage/lcov.info && codecov",
+    "test": "npx jest  --runInBand --coverage && codecov",
     "test-clear": "npx jest --clearCache",
     "test-watch": "npx jest --coverage --watch"
   },

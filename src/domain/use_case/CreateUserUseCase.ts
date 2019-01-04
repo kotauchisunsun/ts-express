@@ -1,8 +1,8 @@
-import { UserRepositoryInteface } from "../../repository/user/UserRepositoryInteface";
-import { UserId } from "../UserId";
-import { User } from "../User";
-import { UserService } from "../UserService";
 import { UserDuplicatedError } from "../../repository/user/UserDuplicatedError";
+import { UserRepositoryInteface } from "../../repository/user/UserRepositoryInteface";
+import { User } from "../User";
+import { UserId } from "../UserId";
+import { UserService } from "../UserService";
 
 export class CreateUserUseCaseInput {
   public constructor(private _name: string) {}
@@ -11,8 +11,8 @@ export class CreateUserUseCaseInput {
   }
 }
 export class CreateUserUseCase {
-  readonly repository: UserRepositoryInteface;
-  readonly userService: UserService;
+  public readonly repository: UserRepositoryInteface;
+  public readonly userService: UserService;
 
   public constructor(
     repository: UserRepositoryInteface,

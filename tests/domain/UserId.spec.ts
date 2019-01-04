@@ -1,5 +1,7 @@
-import { UserId } from "../../src/domain/UserId";
+/* tslint:disable:no-dead-store */
+
 import { InvalidUserIdError } from "../../src/domain/InvalidUserIdError";
+import { UserId } from "../../src/domain/UserId";
 
 describe("UserIdのテスト", () => {
   it("正常系", () => {

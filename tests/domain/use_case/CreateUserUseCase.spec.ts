@@ -1,12 +1,12 @@
-import { UserRepositoryInteface } from "../../../src/repository/user/UserRepositoryInteface";
-import { User } from "../../../src/domain/User";
 import {
   CreateUserUseCase,
   CreateUserUseCaseInput
 } from "../../../src/domain/use_case/CreateUserUseCase";
-import { UserDuplicatedError } from "../../../src/repository/user/UserDuplicatedError";
-import { UserService } from "../../../src/domain/UserService";
+import { User } from "../../../src/domain/User";
 import { UserId } from "../../../src/domain/UserId";
+import { UserService } from "../../../src/domain/UserService";
+import { UserDuplicatedError } from "../../../src/repository/user/UserDuplicatedError";
+import { UserRepositoryInteface } from "../../../src/repository/user/UserRepositoryInteface";
 
 describe("CreateUserUseCaseのテスト", () => {
   it("正常系のテスト", async () => {

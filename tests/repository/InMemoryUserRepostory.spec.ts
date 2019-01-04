@@ -1,6 +1,6 @@
+import { User } from "../../src/domain/User";
 import { UserId } from "../../src/domain/UserId";
 import { InMemoryUserRepository } from "../../src/repository/user/InMemoryUserRepository";
-import { User } from "../../src/domain/User";
 import { UserNotFoundError } from "../../src/repository/user/UserNotFoundError";
 
 describe("InMemoryUserRepositoryのテスト", () => {
@@ -43,7 +43,6 @@ describe("InMemoryUserRepositoryのテスト", () => {
     const repository = new InMemoryUserRepository();
     await expect(repository.delete(new UserId("1234"))).resolves.toBeFalsy();
     await repository.save(user);
-    const savedUser = await repository.find(new UserId("1234"));
     await expect(repository.delete(new UserId("1234"))).resolves.toBeTruthy();
   });
 });

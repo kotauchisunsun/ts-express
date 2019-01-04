@@ -1,5 +1,5 @@
-import { UserId } from "../../domain/UserId";
 import { User } from "../../domain/User";
+import { UserId } from "../../domain/UserId";
 export interface UserRepositoryInteface {
   find(id: UserId): Promise<User>;
   save(user: User): Promise<void>;

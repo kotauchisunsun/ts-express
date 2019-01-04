@@ -1,8 +1,8 @@
-import { UserId } from "../../domain/UserId";
 import { User } from "../../domain/User";
-import { UserRepositoryInteface } from "./UserRepositoryInteface";
-import { UserNotFoundError } from "./UserNotFoundError";
+import { UserId } from "../../domain/UserId";
 import { UserDuplicatedError } from "./UserDuplicatedError";
+import { UserNotFoundError } from "./UserNotFoundError";
+import { UserRepositoryInteface } from "./UserRepositoryInteface";
 
 export class InMemoryUserRepository implements UserRepositoryInteface {
   private data: Map<string, User>;

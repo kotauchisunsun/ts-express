@@ -1,8 +1,8 @@
+import { UserNotFoundError } from "../../repository/user/UserNotFoundError";
 import { UserRepositoryInteface } from "../../repository/user/UserRepositoryInteface";
 import { User } from "../User";
-import { UserService } from "../UserService";
-import { UserNotFoundError } from "../../repository/user/UserNotFoundError";
 import { UserId } from "../UserId";
+import { UserService } from "../UserService";
 
 export class UpdateUserUseCaseInput {
   constructor(private _userId: string, private _name: string) {}
@@ -17,8 +17,8 @@ export class UpdateUserUseCaseInput {
 }
 
 export class UpdateUserUseCase {
-  readonly repository: UserRepositoryInteface;
-  readonly userService: UserService;
+  public readonly repository: UserRepositoryInteface;
+  public readonly userService: UserService;
   public constructor(
     repository: UserRepositoryInteface,
     userService: UserService

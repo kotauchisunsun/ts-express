@@ -1,24 +1,26 @@
+/* tslint:disable:no-duplicate-string */
+
+import {
+  DeleteUserUseCase,
+  DeleteUserUseCaseInput
+} from "src/domain/use_case/DeleteUserUseCase";
 import * as supertest from "supertest";
-import { makeApp } from "../src/makeApp";
+import {
+  CreateUserUseCase,
+  CreateUserUseCaseInput
+} from "../src/domain/use_case/CreateUserUseCase";
 import {
   ReadUserUseCase,
   ReadUserUseCaseInput,
   ReadUserUseCaseOuput
 } from "../src/domain/use_case/ReadUserUseCase";
-import { UserNotFoundError } from "../src/repository/user/UserNotFoundError";
-import {
-  CreateUserUseCase,
-  CreateUserUseCaseInput
-} from "../src/domain/use_case/CreateUserUseCase";
-import { UserDuplicatedError } from "../src/repository/user/UserDuplicatedError";
 import {
   UpdateUserUseCase,
   UpdateUserUseCaseInput
 } from "../src/domain/use_case/UpdateUserUseCase";
-import {
-  DeleteUserUseCase,
-  DeleteUserUseCaseInput
-} from "src/domain/use_case/DeleteUserUseCase";
+import { makeApp } from "../src/makeApp";
+import { UserDuplicatedError } from "../src/repository/user/UserDuplicatedError";
+import { UserNotFoundError } from "../src/repository/user/UserNotFoundError";
 
 function makeReadUserUseCaseMock(): ReadUserUseCase {
   const mockClass = jest.fn<ReadUserUseCase>();
@@ -118,7 +120,7 @@ describe("POST /users", () => {
     }));
 
     const request = makeDummyApp(new Mock());
-    const response = await request.post("/users").send({ name: name });
+    const response = await request.post("/users").send({ name });
     expect(response.status).toBe(200);
   });
 
@@ -132,7 +134,7 @@ describe("POST /users", () => {
     }));
 
     const request = makeDummyApp(new Mock());
-    const response = await request.post("/users").send({ name: name });
+    const response = await request.post("/users").send({ name });
     expect(response.status).toBe(400);
   });
 });

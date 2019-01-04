@@ -1,5 +1,5 @@
-import { UserId } from "../../src/domain/UserId";
 import { User } from "../../src/domain/User";
+import { UserId } from "../../src/domain/UserId";
 
 describe("Userのテスト", () => {
   it("changeNameのテスト", () => {

@@ -1,5 +1,5 @@
-import { UserId } from "../UserId";
 import { UserRepositoryInteface } from "../../repository/user/UserRepositoryInteface";
+import { UserId } from "../UserId";
 
 export class ReadUserUseCaseInput {
   public constructor(private _userId: string) {}
@@ -16,7 +16,7 @@ export class ReadUserUseCaseOuput {
 }
 
 export class ReadUserUseCase {
-  readonly repository: UserRepositoryInteface;
+  public readonly repository: UserRepositoryInteface;
 
   public constructor(repository: UserRepositoryInteface) {
     this.repository = repository;

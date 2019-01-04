@@ -2,7 +2,7 @@ import { UserRepositoryInteface } from "src/repository/user/UserRepositoryIntefa
 import { UserId } from "./UserId";
 
 export class UserService {
-  readonly repository: UserRepositoryInteface;
+  public readonly repository: UserRepositoryInteface;
 
   public constructor(repository: UserRepositoryInteface) {
     this.repository = repository;

@@ -2,10 +2,10 @@ import {
   ReadUserUseCase,
   ReadUserUseCaseInput
 } from "../../../src/domain/use_case/ReadUserUseCase";
-import { UserRepositoryInteface } from "../../../src/repository/user/UserRepositoryInteface";
-import { UserId } from "../../../src/domain/UserId";
 import { User } from "../../../src/domain/User";
+import { UserId } from "../../../src/domain/UserId";
 import { UserNotFoundError } from "../../../src/repository/user/UserNotFoundError";
+import { UserRepositoryInteface } from "../../../src/repository/user/UserRepositoryInteface";
 
 describe("ReadUserUseCaseのテスト", () => {
   it("正常系のテスト", async () => {

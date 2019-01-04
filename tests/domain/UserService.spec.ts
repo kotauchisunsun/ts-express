@@ -1,6 +1,6 @@
 import { UserId } from "../../src/domain/UserId";
-import { UserRepositoryInteface } from "../../src/repository/user/UserRepositoryInteface";
 import { UserService } from "../../src/domain/UserService";
+import { UserRepositoryInteface } from "../../src/repository/user/UserRepositoryInteface";
 
 describe("UserServiceのテスト", () => {
   it("Existsのテスト", async () => {

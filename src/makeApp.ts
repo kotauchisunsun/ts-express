@@ -1,22 +1,24 @@
+/* tslint:disable:no-duplicate-string */
+
 import * as express from "express";
-import {
-  ReadUserUseCase,
-  ReadUserUseCaseInput
-} from "./domain/use_case/ReadUserUseCase";
-import { InMemoryUserRepository } from "./repository/user/InMemoryUserRepository";
 import {
   CreateUserUseCase,
   CreateUserUseCaseInput
 } from "./domain/use_case/CreateUserUseCase";
-import { UserService } from "./domain/UserService";
-import {
-  UpdateUserUseCase,
-  UpdateUserUseCaseInput
-} from "./domain/use_case/UpdateUserUseCase";
 import {
   DeleteUserUseCase,
   DeleteUserUseCaseInput
 } from "./domain/use_case/DeleteUserUseCase";
+import {
+  ReadUserUseCase,
+  ReadUserUseCaseInput
+} from "./domain/use_case/ReadUserUseCase";
+import {
+  UpdateUserUseCase,
+  UpdateUserUseCaseInput
+} from "./domain/use_case/UpdateUserUseCase";
+import { UserService } from "./domain/UserService";
+import { InMemoryUserRepository } from "./repository/user/InMemoryUserRepository";
 
 export function makeApp(
   createUserUseCase: CreateUserUseCase,

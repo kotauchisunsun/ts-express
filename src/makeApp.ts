@@ -13,7 +13,10 @@ import {
   UpdateUserUseCase,
   UpdateUserUseCaseInput
 } from "./domain/use_case/UpdateUserUseCase";
-import { DeleteUserUseCase, DeleteUserUseCaseInput } from "./domain/use_case/DeleteUserUseCase";
+import {
+  DeleteUserUseCase,
+  DeleteUserUseCaseInput
+} from "./domain/use_case/DeleteUserUseCase";
 
 export function makeApp(
   createUserUseCase: CreateUserUseCase,

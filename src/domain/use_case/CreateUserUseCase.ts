@@ -10,6 +10,14 @@ export class CreateUserUseCaseInput {
     return this._name;
   }
 }
+
+export class CreateUserUseCaseOutput {
+  public constructor(private _userId: UserId) {}
+  public get userId(): UserId {
+    return this._userId;
+  }
+}
+
 export class CreateUserUseCase {
   public readonly repository: UserRepositoryInteface;
   public readonly userService: UserService;
@@ -22,7 +30,9 @@ export class CreateUserUseCase {
     this.userService = userService;
   }
 
-  public async run(input: CreateUserUseCaseInput): Promise<void> {
+  public async run(
+    input: CreateUserUseCaseInput
+  ): Promise<CreateUserUseCaseOutput> {
     const id = Math.ceil(Math.random() * 100000);
     const userId = new UserId(String(id));
     if (await this.userService.exists(userId)) {
@@ -30,5 +40,6 @@ export class CreateUserUseCase {
     }
     const user = new User(userId, input.name);
     await this.repository.save(user);
+    return new CreateUserUseCaseOutput(userId);
   }
 }

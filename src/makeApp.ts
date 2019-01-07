@@ -17,8 +17,6 @@ import {
   UpdateUserUseCase,
   UpdateUserUseCaseInput
 } from "./domain/use_case/UpdateUserUseCase";
-import { UserService } from "./domain/UserService";
-import { InMemoryUserRepository } from "./repository/user/InMemoryUserRepository";
 
 export function makeApp(
   createUserUseCase: CreateUserUseCase,
@@ -27,8 +25,8 @@ export function makeApp(
   deleteUserUseCase: DeleteUserUseCase
 ): express.Application {
   const app: express.Application = express();
-  app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
+  app.use(express.json());
 
   app.get(
     "/users/:id",
@@ -63,7 +61,8 @@ export function makeApp(
       const name = req.body.name;
       const input = new CreateUserUseCaseInput(name);
       try {
-        await createUserUseCase.run(input);
+        const output = await createUserUseCase.run(input);
+        res.json({ id: output.userId.value });
         res.end();
       } catch (e) {
         res.status(400);

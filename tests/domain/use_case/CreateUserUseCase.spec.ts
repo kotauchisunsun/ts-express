@@ -1,6 +1,7 @@
 import {
   CreateUserUseCase,
-  CreateUserUseCaseInput
+  CreateUserUseCaseInput,
+  CreateUserUseCaseOutput
 } from "../../../src/domain/use_case/CreateUserUseCase";
 import { User } from "../../../src/domain/User";
 import { UserId } from "../../../src/domain/UserId";
@@ -28,7 +29,9 @@ describe("CreateUserUseCaseのテスト", () => {
     const useCase = new CreateUserUseCase(repositoryMock, serviceMock);
     const input = new CreateUserUseCaseInput("kotauchisunsun");
 
-    await expect(useCase.run(input)).resolves.toBeUndefined();
+    await expect(useCase.run(input)).resolves.toBeInstanceOf(
+      CreateUserUseCaseOutput
+    );
   });
 
   it("異常系のテスト", async () => {

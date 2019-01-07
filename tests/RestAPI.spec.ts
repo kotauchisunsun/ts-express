@@ -7,7 +7,8 @@ import {
 import * as supertest from "supertest";
 import {
   CreateUserUseCase,
-  CreateUserUseCaseInput
+  CreateUserUseCaseInput,
+  CreateUserUseCaseOutput
 } from "../src/domain/use_case/CreateUserUseCase";
 import {
   ReadUserUseCase,
@@ -21,6 +22,7 @@ import {
 import { makeApp } from "../src/makeApp";
 import { UserDuplicatedError } from "../src/repository/user/UserDuplicatedError";
 import { UserNotFoundError } from "../src/repository/user/UserNotFoundError";
+import { UserId } from "../src/domain/UserId";
 
 function makeReadUserUseCaseMock(): ReadUserUseCase {
   const mockClass = jest.fn<ReadUserUseCase>();
@@ -114,21 +116,29 @@ describe("POST /users", () => {
     const name = "kotauchisunsun";
 
     const Mock = jest.fn<CreateUserUseCase>(() => ({
-      run: async (input: CreateUserUseCaseInput): Promise<void> => {
+      run: async (
+        input: CreateUserUseCaseInput
+      ): Promise<CreateUserUseCaseOutput> => {
         expect(input.name).toBe(name);
+        return new CreateUserUseCaseOutput(new UserId("1234"));
       }
     }));
 
     const request = makeDummyApp(new Mock());
     const response = await request.post("/users").send({ name });
     expect(response.status).toBe(200);
+
+    const data = JSON.parse(response.text);
+    expect(data).toEqual({ id: "1234" });
   });
 
   it("異常系のテスト", async () => {
     const name = "kotauchisunsun";
 
     const Mock = jest.fn<CreateUserUseCase>(() => ({
-      run: async (input: CreateUserUseCaseInput): Promise<void> => {
+      run: async (
+        input: CreateUserUseCaseInput
+      ): Promise<CreateUserUseCaseOutput> => {
         throw new UserDuplicatedError();
       }
     }));

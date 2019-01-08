@@ -32,7 +32,7 @@ export function makeApp(
   app.use(express.json());
 
   const logger = log4js.getLogger(__filename);
-  logger.level = "debug";
+  logger.level = "trace";
 
   app.get(
     "/users/:id",

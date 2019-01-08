@@ -17,6 +17,8 @@ import {
   UpdateUserUseCase,
   UpdateUserUseCaseInput
 } from "./domain/use_case/UpdateUserUseCase";
+import * as morgan from "morgan";
+import * as log4js from "log4js";
 
 export function makeApp(
   createUserUseCase: CreateUserUseCase,
@@ -25,8 +27,24 @@ export function makeApp(
   deleteUserUseCase: DeleteUserUseCase
 ): express.Application {
   const app: express.Application = express();
+  app.use(morgan("combined"));
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
+
+  /*
+  import * as winston from "winston";
+  const { combine, timestamp, label, printf } = winston.format;
+  const logger = winston.createLogger({
+    format: combine(
+      timestamp(),
+      printf(info => `${info.timestamp} [${info.level}]: ${info.message}`)
+    ),
+    transports: [new winston.transports.Console()]
+  });
+  */
+
+  const logger = log4js.getLogger(__filename);
+  logger.level = "debug";
 
   app.get(
     "/users/:id",
@@ -45,6 +63,7 @@ export function makeApp(
         res.json(data);
         res.end();
       } catch (e) {
+        logger.warn(e);
         res.status(400);
         res.end();
       }
@@ -65,6 +84,7 @@ export function makeApp(
         res.json({ id: output.userId.value });
         res.end();
       } catch (e) {
+        logger.warn(e);
         res.status(400);
         res.end();
       }
@@ -85,6 +105,7 @@ export function makeApp(
         await updateUserUseCase.run(input);
         res.end();
       } catch (e) {
+        logger.warn(e);
         res.status(400);
         res.end();
       }

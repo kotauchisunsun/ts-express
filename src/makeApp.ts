@@ -31,18 +31,6 @@ export function makeApp(
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
 
-  /*
-  import * as winston from "winston";
-  const { combine, timestamp, label, printf } = winston.format;
-  const logger = winston.createLogger({
-    format: combine(
-      timestamp(),
-      printf(info => `${info.timestamp} [${info.level}]: ${info.message}`)
-    ),
-    transports: [new winston.transports.Console()]
-  });
-  */
-
   const logger = log4js.getLogger(__filename);
   logger.level = "debug";
 

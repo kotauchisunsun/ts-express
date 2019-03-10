@@ -37,7 +37,7 @@
     "prettier": "1.16.4",
     "prettier-tslint": "0.4.2",
     "ts-jest": "24.0.0",
-    "ts-node": "7.0.1",
+    "ts-node": "8.0.3",
     "tslint": "5.13.1",
     "tslint-clean-code": "0.2.9",
     "tslint-config-prettier": "1.18.0",

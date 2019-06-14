@@ -2,7 +2,11 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
+version: 2.1
+
+orbs:
+  sonarqube: onehq/sonarqube@0.3.0
+
 jobs:
   build:
     docker:
@@ -46,3 +50,6 @@ jobs:
             ./cc-test-reporter before-build
             npm run test
             ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $?
+  steps:
+    - onehq/sonarqube:
+      app: "kotauchisunsun_ts-express"

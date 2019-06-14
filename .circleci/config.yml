@@ -51,5 +51,19 @@ jobs:
             npm run test
             ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $?
       
-      - sonarqube/scanner:
-          app: "kotauchisunsun_ts-express"
+      - run:
+        name: Install Sonarqube scanner
+        command: |
+          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
+          unzip sonar-scanner-cli-3.3.0.1492-linux.zip
+
+      - run:
+        name: Run Sonarqube scanner
+        command: |
+          ./sonar-scanner-3.3.0.1492-linux/sonar-scanner \
+            -Dsonar.projectKey=kotauchisunsun_ts-express \
+            -Dsonar.organization=kotauchisunsun-github \
+            -Dsonar.sources=. \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.projectVersion=${CIRCLE_BRANCH} \
+            -Dsonar.login=${SONARQUBE_TOKEN}

@@ -52,4 +52,3 @@ jobs:
             ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $?
   steps:
     - onehq/sonarqube
-      app: "kotauchisunsun_ts-express"

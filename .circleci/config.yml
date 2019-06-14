@@ -62,6 +62,7 @@ jobs:
             -Dsonar.projectKey=kotauchisunsun_ts-express \
             -Dsonar.organization=kotauchisunsun-github \
             -Dsonar.sources=. \
+            -Dsonar.exclusions=vendor/bundle/** \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.projectVersion=${CIRCLE_BRANCH} \
             -Dsonar.login=${SONARQUBE_TOKEN}

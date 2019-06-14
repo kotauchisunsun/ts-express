@@ -58,7 +58,7 @@ jobs:
 
       - run:
           command: |
-            ./sonar-scanner-3.3.0.1492-linux/sonar-scanner \
+            ./sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner \
             -Dsonar.projectKey=kotauchisunsun_ts-express \
             -Dsonar.organization=kotauchisunsun-github \
             -Dsonar.sources=. \

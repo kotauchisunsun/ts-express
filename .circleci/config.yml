@@ -2,7 +2,11 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
+version: 2.1
+
+orbs:
+  sonarqube: onehq/sonarqube@0.3.0
+
 jobs:
   build:
     docker:
@@ -46,3 +50,19 @@ jobs:
             ./cc-test-reporter before-build
             npm run test
             ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $?
+      
+      - run:
+          command: |
+            wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
+            unzip sonar-scanner-cli-3.3.0.1492-linux.zip
+
+      - run:
+          command: |
+            ./sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner \
+            -Dsonar.projectKey=kotauchisunsun_ts-express \
+            -Dsonar.organization=kotauchisunsun-github \
+            -Dsonar.sources=. \
+            -Dsonar.exclusions=sonar-scanner-3.3.0.1492-linux/** \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.projectVersion=${CIRCLE_BRANCH} \
+            -Dsonar.login=${SONARQUBE_TOKEN}

@@ -52,15 +52,13 @@ jobs:
             ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $?
       
       - run:
-        name: Install Sonarqube scanner
-        command: |
-          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
-          unzip sonar-scanner-cli-3.3.0.1492-linux.zip
+          command: |
+            wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
+            unzip sonar-scanner-cli-3.3.0.1492-linux.zip
 
       - run:
-        name: Run Sonarqube scanner
-        command: |
-          ./sonar-scanner-3.3.0.1492-linux/sonar-scanner \
+          command: |
+            ./sonar-scanner-3.3.0.1492-linux/sonar-scanner \
             -Dsonar.projectKey=kotauchisunsun_ts-express \
             -Dsonar.organization=kotauchisunsun-github \
             -Dsonar.sources=. \

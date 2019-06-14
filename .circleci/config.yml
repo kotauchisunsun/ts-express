@@ -52,4 +52,4 @@ jobs:
             ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $?
       
       - static_analysis:
-        onehq/sonarqube
+          - onehq/sonarqube

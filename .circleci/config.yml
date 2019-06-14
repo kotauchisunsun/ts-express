@@ -51,5 +51,5 @@ jobs:
             npm run test
             ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $?
       
-      - sonarqube/scanner
+      - sonarqube/scanner:
           app: "kotauchisunsun_ts-express"

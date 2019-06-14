@@ -50,5 +50,5 @@ jobs:
             ./cc-test-reporter before-build
             npm run test
             ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $?
-  
-  - onehq/sonarqube
+      
+      - onehq/sonarqube

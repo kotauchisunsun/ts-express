@@ -41,7 +41,7 @@
     "tslint": "5.20.0",
     "tslint-clean-code": "0.2.10",
     "tslint-config-prettier": "1.18.0",
-    "tslint-config-standard": "8.0.1",
+    "tslint-config-standard": "9.0.0",
     "tslint-microsoft-contrib": "6.2.0",
     "tslint-plugin-prettier": "2.0.1",
     "tslint-sonarts": "1.9.0"

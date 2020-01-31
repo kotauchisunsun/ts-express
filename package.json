@@ -33,7 +33,7 @@
     "winston": "^3.1.0"
   },
   "devDependencies": {
-    "codecov": "3.6.2",
+    "codecov": "3.6.3",
     "prettier": "1.19.1",
     "prettier-tslint": "0.4.2",
     "ts-jest": "25.1.0",
